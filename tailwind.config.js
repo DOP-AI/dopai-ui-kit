@@ -1,2 +1,10 @@
-npm install next react react-dom typescript @types/react @types/node tailwindcss
-npm run dev
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
