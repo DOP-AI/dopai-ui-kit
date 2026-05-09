@@ -1,40 +1,10 @@
-import React from "react";
-
-import { StatusBanner } from "../components/StatusBanner";
-import { TelemetryCard } from "../components/TelemetryCard";
-import { OperationsCenterLayout } from "../layouts/OperationsCenterLayout";
-
-export default function HomePage() {
-  return (
-    <OperationsCenterLayout
-      header={
-        <StatusBanner
-          status="YELLOW"
-          summary="Elevated operational stress detected across regional environmental systems."
-          activeAlerts={3}
-          telemetryHealth="Stable"
-        />
-      }
-
-      sidebar={
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}
-        >
-          <h3>Operational Layers</h3>
-
-          <div>Environmental Telemetry</div>
-          <div>Infrastructure Status</div>
-          <div>Escalation Regions</div>
-          <div>Flood-State Corridors</div>
-          <div>Public Advisories</div>
-        </div>
-      }
-
-      map={
+<OperationsCenterLayout
+  header={...}
+  sidebar={...}
+  map={<OperationalMap />}
+  timeline={...}
+  telemetry={...}
+/>      map={
         <div
           style={{
             width: "100%",
