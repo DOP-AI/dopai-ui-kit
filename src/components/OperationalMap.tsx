@@ -1,35 +1,42 @@
-"use client";
+import React from "react";
+import dynamic from "next/dynamic";
+import { operationsCenterTheme } from "../themes/operations-center";
 
-import Map, {
-  NavigationControl,
-} from "react-map-gl";
+interface OperationalMapProps {
+  initialLatitude?: number;
+  initialLongitude?: number;
+  initialZoom?: number;
+  onMapLoad?: (map: any) => void;
+}
 
-import "mapbox-gl/dist/mapbox-gl.css";
-
-export const OperationalMap = () => {
-  return (
+// Dynamically import the map component to avoid SSR issues
+const DynamicMap = dynamic(() => import("./OperationalMapClient"), {
+  ssr: false,
+  loading: () => (
     <div
       style={{
         width: "100%",
         height: "100%",
-        minHeight: "420px",
-        borderRadius: "16px",
-        overflow: "hidden",
+        minHeight: "400px",
+        background: operationsCenterTheme.colors.background.elevated,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: operationsCenterTheme.radius.lg,
+        color: operationsCenterTheme.colors.escalation.yellow,
+        fontSize: "14px",
+        fontFamily: operationsCenterTheme.typography.fontFamily.primary,
       }}
     >
-      <Map
-        mapboxAccessToken={
-          process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-        }
-        initialViewState={{
-          longitude: -117.08,
-          latitude: 32.55,
-          zoom: 10,
-        }}
-        mapStyle="mapbox://styles/mapbox/dark-v11"
-      >
-        <NavigationControl position="top-right" />
-      </Map>
+      <div style={{ textAlign: "center" }}>
+        <p style={{ margin: "0 0 8px 0", fontWeight: 600 }}>
+          Loading Map...
+        </p>
+      </div>
     </div>
-  );
+  ),
+});
+
+export const OperationalMap: React.FC<OperationalMapProps> = (props) => {
+  return <DynamicMap {...props} />;
 };

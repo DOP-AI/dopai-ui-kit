@@ -1,28 +1,41 @@
-<OperationsCenterLayout
-  header={...}
-  sidebar={...}
-  map={<OperationalMap />}
-  timeline={...}
-  telemetry={...}
-/>      map={
+import React from "react";
+
+import { StatusBanner } from "../components/StatusBanner";
+import { TelemetryCard } from "../components/TelemetryCard";
+import { OperationalMap } from "../components/OperationalMap";
+import { OperationsCenterLayout } from "../layouts/OperationsCenterLayout";
+
+export default function HomePage() {
+  return (
+    <OperationsCenterLayout
+      header={
+        <StatusBanner
+          status="ORANGE"
+          summary="TRV-SHIELD South Bay operations monitoring rising H₂S, rainfall stress, and infrastructure degradation."
+          activeAlerts={5}
+          telemetryHealth="Partial Visibility"
+        />
+      }
+
+      sidebar={
         <div
           style={{
-            width: "100%",
-            height: "100%",
-            minHeight: "420px",
-            borderRadius: "12px",
-            background:
-              "linear-gradient(180deg, #182230 0%, #10161F 100%)",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#7D8794",
-            fontSize: "18px",
+            flexDirection: "column",
+            gap: "16px",
           }}
         >
-          map={<OperationalMap />}
+          <h3>Operational Layers</h3>
+
+          <div>Environmental Telemetry</div>
+          <div>Infrastructure Status</div>
+          <div>Escalation Regions</div>
+          <div>Flood-State Corridors</div>
+          <div>Public Advisories</div>
         </div>
       }
+
+      map={<OperationalMap />}
 
       timeline={
         <div
@@ -56,40 +69,40 @@
         <>
           <TelemetryCard
             label="H₂S Levels"
-            value={42.7}
+            value={58.4}
             unit="ppb"
+            status="ORANGE"
+            trend="↑ +22% past 3h"
+            sensorId="TRV-H2S-NESTOR-001"
+          />
+
+          <TelemetryCard
+            label="Rainfall Intensity"
+            value={0.42}
+            unit="in/hr"
             status="YELLOW"
-            trend="↑ +12% past 3h"
-            sensorId="TRV-H2S-001"
+            trend="Spike detected"
+            sensorId="TRV-RAIN-002"
           />
 
           <TelemetryCard
             label="Flow Velocity"
-            value={385}
+            value={412}
             unit="cfs"
             status="ORANGE"
-            trend="↑ +18% past 6h"
+            trend="↑ +24% past 6h"
             sensorId="TRV-FLOW-003"
-          />
-
-          <TelemetryCard
-            label="Air Quality"
-            value="Moderate"
-            status="GREEN"
-            trend="Stable"
-            sensorId="AQ-REGION-07"
           />
 
           <TelemetryCard
             label="Pump Status"
             value="Degraded"
-            status="ORANGE"
-            trend="Backup Systems Active"
+            status="RED"
+            trend="Manual verification required"
             sensorId="TRV-PUMP-007"
           />
         </>
       }
     />
   );
-            }
-          
+}
