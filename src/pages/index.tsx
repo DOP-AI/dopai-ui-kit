@@ -50,7 +50,7 @@ export default function HomePage() {
             fontSize: "18px",
           }}
         >
-          Operational Map Placeholder
+          map={<OperationalMap />}
         </div>
       }
 
@@ -121,4 +121,5 @@ export default function HomePage() {
       }
     />
   );
-}
+            }
+          
